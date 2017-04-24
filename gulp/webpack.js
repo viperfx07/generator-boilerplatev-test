@@ -25,8 +25,7 @@ export default function(gulp, plugins, args, config, taskTarget, browserSync, di
             rules: [{
                 test: /\.js$/,
                 loader: "babel-loader"
-            }
-            ]
+            }]
         }
     };
 
@@ -47,7 +46,7 @@ export default function(gulp, plugins, args, config, taskTarget, browserSync, di
             .pipe(plugins.plumber())
             .pipe(webpackStream(webpackSettings, webpack))
             .pipe(gulp.dest(dest))
-            .on('end', browserSync.reload);
+            .on('end', !args.production ? browserSync.reload : function(){});
     });
 
 }
